@@ -1,26 +1,33 @@
-function debounce(fn, wait) {
-  let timerId;
-  let lastThis;
-  let lastArgs;
+function debounce(fn, wait, immediate) {
+  let timerId, result;
 
-  function startTimer() {
+  function startTimer(context, args) {
     timerId = setTimeout(function() {
-      fn.apply(lastThis, lastArgs);
-      clearTimeout(timerId);
+      timerId = undefined;
+      if (args) {
+        result = fn.apply(context, args);
+      }
     }, wait);
   }
 
   function debounced(...args) {
-    lastThis = this;
-    lastArgs = args;
+    let lastThis = this;
+    let lastArgs = args;
 
-    if (timerId === undefined) {
-      startTimer();
-    } else {
+    if (timerId) {
       clearTimeout(timerId);
-      timerId = undefined;
-      startTimer();
     }
+    if (immediate) {
+      let shouldCall = !timerId;
+      startTimer();
+      if (shouldCall) {
+        result = fn.apply(lastThis);
+      }
+    } else {
+      startTimer(lastThis, lastArgs);
+    }
+
+    return result;
   }
 
   return debounced;

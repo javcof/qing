@@ -64,13 +64,20 @@
       dsfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf
       dsfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf
     </div>
+    <div>
+      <button id="btn-test">Click</button>
+    </div>
     <script src="debounce.js"></script>
     <script>
       var wrap = document.getElementById('wrap');
-      var debounceFn = debounce(function(e) {
+      wrap.onscroll = debounce(function(e) {
         console.log(e.target.scrollTop);
-      }, 1000);
-      wrap.onscroll = debounceFn;
+      }, 1000, false);
+
+      var test = document.getElementById('btn-test');
+      test.onclick = debounce(function() {
+        console.log('abc');
+      }, 1000, true);
     </script>
   </body>
 </html>
