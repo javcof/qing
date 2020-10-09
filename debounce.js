@@ -10,18 +10,22 @@ function debounce(fn, wait, immediate) {
     }, wait);
   }
 
+  function clearTimer() {
+    if (timerId) {
+      clearTimeout(timerId);
+    }
+  }
+
   function debounced(...args) {
     let lastThis = this;
     let lastArgs = args;
 
-    if (timerId) {
-      clearTimeout(timerId);
-    }
+    clearTimer();
     if (immediate) {
       let shouldCall = !timerId;
       startTimer();
       if (shouldCall) {
-        result = fn.apply(lastThis);
+        result = fn.apply(lastThis, lastArgs);
       }
     } else {
       startTimer(lastThis, lastArgs);
