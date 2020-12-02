@@ -1,0 +1,16 @@
+{
+  "name": "qing",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "repository": "https://github.com/javcof/qing.git",
+  "author": "Jerry Zhang <jerryz@synnex.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "prettier": "^2.2.1",
+    "webpack": "^5.9.0",
+    "webpack-cli": "^4.2.0"
+  }
+}
